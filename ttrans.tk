@@ -1,7 +1,7 @@
 #!/usr/bin/wish
 
   label .lab0 -text "Value or Equation" -font "Courier, 16"
-  entry .ety -text "input" -font "Courier,16"
+  entry .ety -text "input" -textvar in_value -font "Courier,16" 
   label .lab1 -text "Hexdecimal:" -font "Courier,16"
   label .lab2 -text "Decimal:" -font "Courier,16"
   label .lab3 -text "Binary:" -font "Courier,16"
@@ -9,7 +9,9 @@
   label .lab_D -text "" -textvar dec_value -font "Courier,16"
   label .lab_B -text "" -textvar bin_value -font "Courier,16"
 
-  button .btnCalc -text "Calc" -font "Courier,16"
+  button .btnCalc -text "Calc" -font "Courier,16" -command {
+    puts [.ety get]
+  }
   button .btnExit -text "Exit" -command {exit} -font "Courier,16"
 
   bind . <Escape> { .btnExit invoke }
