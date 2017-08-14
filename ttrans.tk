@@ -1,2 +1,22 @@
 #!/usr/bin/wish
-  
+
+  label .lab0 -text "Value or Equation" -font "Courier, 16"
+  entry .ety -text "input" -font "Courier,16"
+  label .lab1 -text "Hexdecimal:" -font "Courier,16"
+  label .lab2 -text "Decimal:" -font "Courier,16"
+  label .lab3 -text "Binary:" -font "Courier,16"
+  label .lab_H -text "" -textvar hex_value -font "Courier,16"
+  label .lab_D -text "" -textvar dec_value -font "Courier,16"
+  label .lab_B -text "" -textvar bin_value -font "Courier,16"
+
+  button .btnCalc -text "Calc" -font "Courier,16"
+  button .btnExit -text "Exit" -command {exit} -font "Courier,16"
+
+  bind . <Escape> { .btnExit invoke }
+
+  wm minsize . 340 180
+  grid .lab0 .ety
+  grid .lab1 .lab_H -rowspan 3
+  grid .lab2 .lab_D -rowspan 3
+  grid .lab3 .lab_B -rowspan 3
+  grid .btnCalc .btnExit
