@@ -1,5 +1,19 @@
 #!/usr/bin/wish
 
+  proc bin2fmt { val } {
+    set temp {}
+    while { $val > 0 } {
+      set temp [ linsert $temp 0 [expr $val%2] ]
+      set val [expr $val/2]
+    }
+    set len_temp [llength $temp]
+    while { $len_temp > 4 } {
+      set temp [ linsert $temp [expr $len_temp-4] "_" ]
+      set len_temp [ expr $len_temp-4 ]
+    }
+    return [ join $temp {} ]
+  }
+
   label .lab0 -text "Value or Equation" -font "Courier, 16"
   entry .ety -text "input" -textvar in_value -font "Courier,16" 
   label .lab1 -text "Hexdecimal:" -font "Courier,16"
@@ -10,13 +24,18 @@
   label .lab_B -text "" -textvar bin_value -font "Courier,16"
 
   button .btnCalc -text "Calc" -font "Courier,16" -command {
-    puts [.ety get]
+    set calc_value [expr [.ety get]]
+    set hex_value [format %#X $calc_value]
+    set dec_value $calc_value
+    set bin_value [bin2fmt $calc_value]
   }
   button .btnExit -text "Exit" -command {exit} -font "Courier,16"
 
   bind . <Escape> { .btnExit invoke }
+  bind . <Return> { .btnCalc invoke }
 
-  wm minsize . 340 180
+  wm minsize . 340 180 
+  wm title . {ttans}
   grid .lab0 .ety
   grid .lab1 .lab_H -rowspan 3
   grid .lab2 .lab_D -rowspan 3
