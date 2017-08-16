@@ -1,10 +1,24 @@
 #!/usr/bin/wish
 
+  proc dec2fmt { val } {
+    set temp {}
+    while { $val > 0 } {
+      set temp [ linsert $temp 0 [expr $val%10] ]
+      set val [expr int($val/10)]
+    }
+    set len_temp [llength $temp]
+    while {$len_temp > 3} {
+      set temp [linsert $temp [expr $len_temp-3] ","]
+      set len_temp [expr $len_temp-3]
+    }
+    return [join $temp {}]
+  }
+
   proc bin2fmt { val } {
     set temp {}
     while { $val > 0 } {
       set temp [ linsert $temp 0 [expr $val%2] ]
-      set val [expr $val/2]
+      set val [expr int($val/2)]
     }
     set len_temp [llength $temp]
     while { $len_temp > 4 } {
@@ -26,7 +40,7 @@
   button .btnCalc -text "Calc" -font "Courier,16" -command {
     set calc_value [expr [.ety get]]
     set hex_value [format %#X $calc_value]
-    set dec_value $calc_value
+    set dec_value [dec2fmt $calc_value]
     set bin_value [bin2fmt $calc_value]
   }
   button .btnExit -text "Exit" -command {exit} -font "Courier,16"
