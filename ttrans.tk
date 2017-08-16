@@ -1,9 +1,24 @@
 #!/usr/bin/wish
+  
+  proc hex2fmt { val } {
+    set temp {}
+    while { $val > 0 } {
+      set temp [linsert $temp 0 [format %X [expr $val%16]]]
+      set val [expr $val>>4]
+    }
+    set len_temp [llength $temp]
+    while { $len_temp > 4 } {
+      set temp [linsert $temp [expr $len_temp-4] "_"]
+      set len_temp [expr $len_temp-4]
+    }
+    set temp [linsert $temp 0 "0x"]
+    return [join $temp {}]
+  }
 
   proc dec2fmt { val } {
     set temp {}
     while { $val > 0 } {
-      set temp [ linsert $temp 0 [expr $val%10] ]
+      set temp [linsert $temp 0 [expr $val%10]]
       set val [expr int($val/10)]
     }
     set len_temp [llength $temp]
@@ -17,13 +32,13 @@
   proc bin2fmt { val } {
     set temp {}
     while { $val > 0 } {
-      set temp [ linsert $temp 0 [expr $val%2] ]
-      set val [expr int($val/2)]
+      set temp [linsert $temp 0 [expr $val%2]]
+      set val [expr $val>>1]
     }
     set len_temp [llength $temp]
     while { $len_temp > 4 } {
-      set temp [ linsert $temp [expr $len_temp-4] "_" ]
-      set len_temp [ expr $len_temp-4 ]
+      set temp [linsert $temp [expr $len_temp-4] "_"]
+      set len_temp [expr $len_temp-4]
     }
     return [ join $temp {} ]
   }
@@ -39,7 +54,8 @@
 
   button .btnCalc -text "Calc" -font "Courier,16" -command {
     set calc_value [expr [.ety get]]
-    set hex_value [format %#X $calc_value]
+    #set hex_value [format %#X $calc_value]
+    set hex_value [hex2fmt $calc_value]
     set dec_value [dec2fmt $calc_value]
     set bin_value [bin2fmt $calc_value]
   }
@@ -47,6 +63,13 @@
 
   bind . <Escape> { .btnExit invoke }
   bind . <Return> { .btnCalc invoke }
+  bind . <q> {
+    set in_value {}
+    set hex_value {}
+    set dec_value {}
+    set bin_value {}
+  }
+
 
   wm minsize . 340 180 
   wm title . {ttans}
