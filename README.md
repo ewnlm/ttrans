@@ -1,5 +1,5 @@
 # ttrans
-  A tool show the hexdemical, demical and binary digits simultaneous while calculating in Tk.
+  A calculator to show the hexdemical, demical and binary digits simultaneous.
 ### Overview
   [ttrans](http://i.imgur.com/19g7kLY.png)
 
