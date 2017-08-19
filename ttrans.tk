@@ -16,11 +16,7 @@
   }
 
   proc dec2fmt { val } {
-    set temp {}
-    while { $val > 0 } {
-      set temp [linsert $temp 0 [expr $val%10]]
-      set val [expr int($val/10)]
-    }
+    set temp [split $val {}]
     set len_temp [llength $temp]
     while {$len_temp > 3} {
       set temp [linsert $temp [expr $len_temp-3] ","]
