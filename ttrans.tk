@@ -1,6 +1,8 @@
 #!/usr/bin/wish
   
   proc hex2fmt { val } {
+    ### hexadecimal formating
+    ### To insert the symbol UNDERLINE "_" every 4 digits.
     set temp {}
     while { $val > 0 } {
       set temp [linsert $temp 0 [format %X [expr $val%16]]]
@@ -16,6 +18,8 @@
   }
 
   proc dec2fmt { val } {
+    ### decimal format
+    ### To insert the symbol COMMA "," every 3 digits
     set temp [split $val {}]
     set len_temp [llength $temp]
     while {$len_temp > 3} {
@@ -26,6 +30,8 @@
   }
 
   proc bin2fmt { val } {
+    ### binary format
+    ###	To insert the symbol UNDERLINE "_" every 4 digits
     set temp {}
     while { $val > 0 } {
       set temp [linsert $temp 0 [expr $val%2]]
@@ -39,6 +45,7 @@
     return [ join $temp {} ]
   }
 
+  ### Elements
   label .lab0 -text "Value or Equation" -font "Courier, 16"
   entry .ety -text "input" -textvar in_value -font "Courier,16" 
   label .lab1 -text "Hexdecimal:" -font "Courier,16"
@@ -57,6 +64,7 @@
   }
   button .btnExit -text "Exit" -command {exit} -font "Courier,16"
 
+  ### Shortcuts
   bind . <Escape> { .btnExit invoke }
   bind . <Return> { .btnCalc invoke }
   bind . <q> {
@@ -67,6 +75,7 @@
   }
 
 
+  ### Floorplan
   wm minsize . 340 180 
   wm title . {ttans}
   grid .lab0 .ety
